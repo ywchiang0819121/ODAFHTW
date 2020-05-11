@@ -1,0 +1,44 @@
+{
+    "records": [
+        {
+            "Dog Breed": "Chihuahua kurzhaariger Schlag",
+            "Anzahl": 242
+        },
+        {
+            "Dog Breed": "Golden Retriever",
+            "Anzahl": 127
+        },
+        {
+            "Dog Breed": "Malteser",
+            "Anzahl": 123
+        },
+        {
+            "Dog Breed": "Labrador Retriever / Mischling",
+            "Anzahl": 119
+        },
+        {
+            "Dog Breed": "Yorkshire Terrier",
+            "Anzahl": 106
+        },
+        {
+            "Dog Breed": "Amerikanischer Staffordshire-Terrier",
+            "Anzahl": 94
+        },
+        {
+            "Dog Breed": "Deutscher Schäferhund",
+            "Anzahl": 88
+        },
+        {
+            "Dog Breed": "Deutscher Schäferhund / Mischling",
+            "Anzahl": 80
+        },
+        {
+            "Dog Breed": "Labrador Retriever",
+            "Anzahl": 77
+        },
+        {
+            "Dog Breed": "Französische Bulldogge",
+            "Anzahl": 74
+        }
+    ]
+}

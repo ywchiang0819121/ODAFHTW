@@ -1,0 +1,44 @@
+{
+    "records": [
+        {
+            "Dog Breed": "Labrador Retriever / Mischling",
+            "Anzahl": 21
+        },
+        {
+            "Dog Breed": "Malteser",
+            "Anzahl": 11
+        },
+        {
+            "Dog Breed": "Labrador Retriever",
+            "Anzahl": 11
+        },
+        {
+            "Dog Breed": "Golden Retriever",
+            "Anzahl": 10
+        },
+        {
+            "Dog Breed": "Mops",
+            "Anzahl": 10
+        },
+        {
+            "Dog Breed": "Magyar Vizsla",
+            "Anzahl": 10
+        },
+        {
+            "Dog Breed": "Havaneser",
+            "Anzahl": 10
+        },
+        {
+            "Dog Breed": "Chihuahua kurzhaariger Schlag",
+            "Anzahl": 10
+        },
+        {
+            "Dog Breed": "Shih Tzu",
+            "Anzahl": 9
+        },
+        {
+            "Dog Breed": "Havaneser / Mischling",
+            "Anzahl": 8
+        }
+    ]
+}

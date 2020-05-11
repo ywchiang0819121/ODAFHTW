@@ -1,0 +1,44 @@
+{
+    "records": [
+        {
+            "Dog Breed": "Labrador Retriever / Mischling",
+            "Anzahl": 95
+        },
+        {
+            "Dog Breed": "Golden Retriever",
+            "Anzahl": 91
+        },
+        {
+            "Dog Breed": "Labrador Retriever",
+            "Anzahl": 70
+        },
+        {
+            "Dog Breed": "Chihuahua kurzhaariger Schlag",
+            "Anzahl": 50
+        },
+        {
+            "Dog Breed": "Deutscher Schäferhund / Mischling",
+            "Anzahl": 37
+        },
+        {
+            "Dog Breed": "Dackel / Mischling",
+            "Anzahl": 36
+        },
+        {
+            "Dog Breed": "Yorkshire Terrier",
+            "Anzahl": 35
+        },
+        {
+            "Dog Breed": "Englischer Cockerspaniel",
+            "Anzahl": 33
+        },
+        {
+            "Dog Breed": "Französische Bulldogge",
+            "Anzahl": 33
+        },
+        {
+            "Dog Breed": "Malteser",
+            "Anzahl": 32
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "records": [
+        {
+            "Dog Breed": "Labrador Retriever",
+            "Anzahl": 20
+        },
+        {
+            "Dog Breed": "Labrador Retriever / Mischling",
+            "Anzahl": 15
+        },
+        {
+            "Dog Breed": "Golden Retriever",
+            "Anzahl": 14
+        },
+        {
+            "Dog Breed": "Chihuahua kurzhaariger Schlag",
+            "Anzahl": 12
+        },
+        {
+            "Dog Breed": "Dackel",
+            "Anzahl": 11
+        },
+        {
+            "Dog Breed": "Malteser",
+            "Anzahl": 10
+        },
+        {
+            "Dog Breed": "Parson-Russell-Terrier",
+            "Anzahl": 10
+        },
+        {
+            "Dog Breed": "Beagle",
+            "Anzahl": 9
+        },
+        {
+            "Dog Breed": "Pudel",
+            "Anzahl": 9
+        },
+        {
+            "Dog Breed": "Yorkshire Terrier",
+            "Anzahl": 9
+        }
+    ]
+}
