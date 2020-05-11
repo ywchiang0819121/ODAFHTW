@@ -1,0 +1,25 @@
+
+{
+    "records": [
+        {
+            "Postal_CODE": 1010,
+            "Dog Breed": "Afghanischer Windhund",
+            "Anzahl": 1
+        },
+        {
+            "Postal_CODE": 1020,
+            "Dog Breed": "Amerikanischer Cockerspaniel",
+            "Anzahl": 1
+        },
+        {
+            "Postal_CODE": 1030,
+            "Dog Breed": "Amerikanischer Staffordshire-Terrier",
+            "Anzahl": 2
+        },
+        {
+            "Postal_CODE": 1040,
+            "Dog Breed": "Australian Shepherd Dog",
+            "Anzahl": 2
+        }
+    ]
+}
