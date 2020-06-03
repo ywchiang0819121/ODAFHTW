@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <title>Chart dogs</title>
+</head>
+
+<body>
+    <h1>Chart dogs</h1>
+    <div id="chart"></div>
+
+    <script>
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                vars[key] = value;
+            });
+            return vars;
+        }
+
+        console.log(getUrlVars()["dist"]);
+
+        var requestURL = 'https://raw.githubusercontent.com/ywchiang0819121/ODAFHTW/master/' + parseInt(getUrlVars()["dist"], 10) + '.json';
+        var request = new XMLHttpRequest();
+        var rawdata;
+        request.open('GET', requestURL);
+        request.responseType = 'json';
+        request.send();
+        request.onload = function () {
+            rawdata = request.response;
+            var chart = new ApexCharts(document.querySelector("#chart"), getOptions(rawdata));
+            chart.render();
+        }
+
+        function getBreeds(data) {
+            var breeds = [];
+            for (var i = 0; i < 10; i++) {
+                breeds[i] = data['records'][i]['Dog Breed'];
+            }
+            console.log(breeds);
+            return breeds;
+        }
+
+        function getAmounts(data) {
+            var amounts = [];
+            for (var i = 0; i < 10; i++) {
+                amounts[i] = data['records'][i]['Anzahl'];
+            }
+            console.log(amounts);
+            return amounts;
+        }
+
+        function getOptions(data) {
+            return options = {
+                series: [{
+                    name: 'Number of dogs',
+                    data: getAmounts(rawdata)
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    width: 1000
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                    }
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                xaxis: {
+                    categories: getBreeds(rawdata),
+                }
+            };
+        }
+    </script>
+</body>
+
+</html>
