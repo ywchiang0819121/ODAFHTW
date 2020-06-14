@@ -36,24 +36,25 @@
 			district(rawdata);
 		}
 
+		var requestURL1 = 'https://raw.githubusercontent.com/ywchiang0819121/ODAFHTW/master/first.json';
+		var request1 = new XMLHttpRequest();
+		request1.open('GET', requestURL1);
+		request1.responseType = 'json';
+		request1.send();
+		request1.onload = function () {
+			var raw = request1.response;
+			Breed(raw);
+		}
+
 		var distNum = new Array();
 
 		function district(data) {
 			L.geoJson(data, {
 				onEachFeature: function (feature, layer) {
-					// var array = coordsToLatLng(feature.geometry.coordinates);
-					// console.log(layer);
 					convert(feature);
 				}
 			});
-			// var i;
-			// for (i=0; i<data['features'].length; i++) {
-			// 	convert(data['features'][i]['geometry']['coordinates'][0]);
-			// 	distNum[i] = data['features'][i]['properties']['BEZNR'];
-			// }
-			// console.log(midpoints);
-			// console.log(distNum);
-			// marker(midpoints);
+
 		}
 
 		function convert(data) {
@@ -63,39 +64,21 @@
 					array.push([coords[1], coords[0]]);
 				}
 			});
-			// console.log(data);
-
-			// {coordsToLatLng : function(coords) {
-			// 		return new L.Latlng(coords[0], coords[1]);
-			// 	}
-			// }
-			// var i;
-			// for (i=0; i<data.length; i++) {
-			// 	var tmp;
-			// 	tmp = data[i][0];
-			// 	data[i][0] = data[i][1];
-			// 	data[i][1] = tmp;
-			// }
-
-			// draw(data);
-
-			// console.log(array);
 			midpoint(array);
 		}
 
 		function draw(GeoJSON) {
-			// var polygon = L.polygon(array).addTo(map);
 			var geojson = L.geoJson(GeoJSON).addTo(map);
 			geojson.eachLayer(function (layer) {
-				var dist = layer.feature.properties.BEZ;
+				var dist = layer.feature.properties.BEZNR;
 				layer.bindPopup("District " + dist + "<br>" + dogbreed[dist] + "<br> <a href=\"chart_page.html?dist=" + dist + "\" target=\"_blank\">Top 10 Popular dogs</a>");
 			});
 		}
 
-		$.getJSON("first.json", function (json) {
-			// console.log(json['records']);
-			Breed(json);
-		});
+		// $.getJSON("first.json", function (json) {
+		// 	// console.log(json['records']);
+		// 	Breed(json);
+		// });
 
 		var midpoints = new Array();
 		function midpoint(boundary) {
@@ -127,26 +110,11 @@
 
 		var dogbreed = new Array(23);
 		function Breed(json) {
-			// console.log(json['records']);
 			var i;
 			for (i = 0; i < json['records'].length; i++) {
 				dogbreed[i] = json['records'][i]['Dog Breed'];
 			}
-			// console.log(dogbreed);
 		}
-
-		// var file = new File(['records'],'/file/abc.json')
-		// console.log(file);
-
-		// var URL = 'https://github.com/ywchiang0819121/ODAFHTW/blob/master/first.json';
-		// var request1 = new XMLHttpRequest();
-		// request1.open('GET', URL);
-		// request1.responseType = 'json';
-		// request1.send();
-		// request1.onload = function() {
-		// 	var data = request1.response;
-		// 	console.log(data);
-		// }
 
       // }
       // function readTextFile(file) {
