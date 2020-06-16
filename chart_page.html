@@ -9,13 +9,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <title>Chart dogs</title>
+    <body style="background-image: url('background.jpg');">
 </head>
 
 <body>
-    <h1>Chart dogs</h1>
+    <h1 id="header">Chart dogs</h1>
     <div id="chart"></div>
 
     <script>
+        document.getElementById('header').innerHTML = "Top 10 Popular dogs - District " + parseInt(getUrlVars()["dist"], 10);
+
         function getUrlVars() {
             var vars = {};
             var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
@@ -65,7 +68,7 @@
                 chart: {
                     type: 'bar',
                     height: 350,
-                    width: 1000
+                    width: 900
                 },
                 plotOptions: {
                     bar: {
