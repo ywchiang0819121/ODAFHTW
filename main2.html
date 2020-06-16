@@ -2,108 +2,115 @@
 
 <head>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-		integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-		crossorigin="" />
+	integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+	crossorigin="" />
 
 	<!-- Make sure you put this AFTER Leaflet's CSS -->
 	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-		integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-		crossorigin="">
-		</script>
+	integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+	crossorigin="">
+	</script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="jquery.js"></script>
+	<script src="dist/jquery.slidereveal.min.js"></script>
 
 </head>
 
 <body>
 	<div id="mapid" style="width: 100%; height: 100%"></div>
 
+	<div id="slider">Hello World!!</div>
+	<button id="trigger">Trigger</button>
+
 	<script>
-		var map = L.map('mapid').setView([48.239306, 16.377313], 13);
+	var map = L.map('mapid').setView([48.239306, 16.377313], 13);
 
-		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-		}).addTo(map);
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	}).addTo(map);
 
 
-		var requestURL = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json';
-		var request = new XMLHttpRequest();
-		request.open('GET', requestURL);
-		request.responseType = 'json';
-		request.send();
-		request.onload = function () {
-			var rawdata = request.response;
-			draw(rawdata);
-			district(rawdata);
-		}
+	var requestURL = 'https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json';
+	var request = new XMLHttpRequest();
+	request.open('GET', requestURL);
+	request.responseType = 'json';
+	request.send();
+	request.onload = function () {
+		var rawdata = request.response;
+		draw(rawdata);
+		district(rawdata);
+	}
 
-		var requestURL1 = 'https://raw.githubusercontent.com/ywchiang0819121/ODAFHTW/master/first.json';
-		var request1 = new XMLHttpRequest();
-		request1.open('GET', requestURL1);
-		request1.responseType = 'json';
-		request1.send();
-		request1.onload = function () {
-			var raw = request1.response;
-			Breed(raw);
-		}
+	var requestURL1 = 'https://raw.githubusercontent.com/ywchiang0819121/ODAFHTW/master/first.json';
+	var request1 = new XMLHttpRequest();
+	request1.open('GET', requestURL1);
+	request1.responseType = 'json';
+	request1.send();
+	request1.onload = function () {
+		var raw = request1.response;
+		Breed(raw);
+	}
 
-		var distNum = new Array();
+	var distNum = new Array();
 
-		function district(data) {
-			L.geoJson(data, {
-				onEachFeature: function (feature, layer) {
-					convert(feature);
-				}
-			});
-
-		}
-
-		function convert(data) {
-			var array = new Array();
-			L.geoJson(data, {
-				coordsToLatLng: function (coords) {
-					array.push([coords[1], coords[0]]);
-				}
-			});
-			midpoint(array);
-		}
-
-		function draw(GeoJSON) {
-			var geojson = L.geoJson(GeoJSON).addTo(map);
-			geojson.eachLayer(function (layer) {
-				var dist = layer.feature.properties.BEZNR;
-				layer.bindPopup("District " + dist + "<br>" + dogbreed[dist] + "<br> <a href=\"chart_page.html?dist=" + dist + "\" target=\"_blank\">Top 10 Popular dogs</a>");
-			});
-		}
-
-		// $.getJSON("first.json", function (json) {
-		// 	// console.log(json['records']);
-		// 	Breed(json);
-		// });
-
-		var midpoints = new Array();
-		function midpoint(boundary) {
-			var i;
-			var sumLon = 0;
-			var sumLat = 0;
-			for (i = 0; i < boundary.length; i++) {
-				sumLon += boundary[i][0];
-				sumLat += boundary[i][1];
+	function district(data) {
+		L.geoJson(data, {
+			onEachFeature: function (feature, layer) {
+				convert(feature);
 			}
-			var aveLon = sumLon / boundary.length;
-			var aveLat = sumLat / boundary.length;
-			midpoints.push([aveLon, aveLat]);
-		}
+		});
 
-		function marker(array) {
-			var i;
-			for (i = 0; i < array.length; i++) {
-				var dist = distNum[i] - 1;
-				if (distNum[i] == 2) {
-					array[i] = [48.213075, 16.408444];
-				} else if (distNum[i] == 5) {
-					array[i] = [48.186402, 16.358963];
-				}
-				var marker = L.marker(array[i]).addTo(map);
+	}
+
+	function convert(data) {
+		var array = new Array();
+		L.geoJson(data, {
+			coordsToLatLng: function (coords) {
+				array.push([coords[1], coords[0]]);
+			}
+		});
+		midpoint(array);
+	}
+
+	function draw(GeoJSON) {
+		var geojson = L.geoJson(GeoJSON).addTo(map);
+		geojson.eachLayer(function (layer) {
+			var dist = layer.feature.properties.BEZNR;
+			layer.bindPopup("District " + dist + "<br>" + dogbreed[dist] + "<br> <a href=\"chart_page.html?dist=" + dist + "\" target=\"_blank\">Top 10 Popular dogs</a>");
+		});
+	}
+
+	$("#slider").slideReveal({
+		trigger: $("#trigger"),
+		position: "right",
+		width: 500
+	});
+
+
+	var midpoints = new Array();
+	function midpoint(boundary) {
+		var i;
+		var sumLon = 0;
+		var sumLat = 0;
+		for (i = 0; i < boundary.length; i++) {
+			sumLon += boundary[i][0];
+			sumLat += boundary[i][1];
+		}
+		var aveLon = sumLon / boundary.length;
+		var aveLat = sumLat / boundary.length;
+		midpoints.push([aveLon, aveLat]);
+	}
+
+	function marker(array) {
+		var i;
+		for (i = 0; i < array.length; i++) {
+			var dist = distNum[i] - 1;
+			if (distNum[i] == 2) {
+				array[i] = [48.213075, 16.408444];
+			} else if (distNum[i] == 5) {
+				array[i] = [48.186402, 16.358963];
+			}
+			var marker = L.marker(array[i]).addTo(map);
 				// marker.bindPopup("District " + distNum[i] + "<br>" + dogbreed[dist]);
 			}
 		}
@@ -116,27 +123,7 @@
 			}
 		}
 
-      // }
-      // function readTextFile(file) {
-      // 	var rawFile = new XMLHttpRequest();
-      // 	rawFile.open("GET", file, false);
-      // 	rawFile.onreadystatechange = function() {
-      // 		if(rawFile.readyState === 4) {
-      // 			if(rawFile.status === 200 || rawFile.status == 0) {
-      // 				var allText = rawFile.responseText;
-      // 				alert(allText);
-      // 			}
-      //   	}
-      // 	}
-      // 	rawFile.send(null);
-      // }
+		</script>
+	</body>
 
-      // readTextFile("file:///C:/xampp/htdocs/webapp/file/abc.json");
-  //   	var fs = require("fs");
-		// var data = fs.readFileSync("file/BEZIRKSGRENZEOGD.json");
-		// console.log(data);
-
-	</script>
-</body>
-
-</html>
+	</html>
