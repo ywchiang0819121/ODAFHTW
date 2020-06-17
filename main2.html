@@ -46,26 +46,6 @@
 		Breed(raw);
 	}
 
-	var distNum = new Array();
-
-	function district(data) {
-		L.geoJson(data, {
-			onEachFeature: function (feature, layer) {
-				convert(feature);
-			}
-		});
-
-	}
-
-	function convert(data) {
-		var array = new Array();
-		L.geoJson(data, {
-			coordsToLatLng: function (coords) {
-				array.push([coords[1], coords[0]]);
-			}
-		});
-		midpoint(array);
-	}
 
 	function draw(GeoJSON) {
 		var geojson = L.geoJson(GeoJSON).addTo(map);
@@ -75,10 +55,37 @@
 		});
 	}
 
+	var dogbreed = new Array(23);
+	function Breed(json) {
+		var i;
+		for (i = 0; i < json['records'].length; i++) {
+			dogbreed[i] = json['records'][i]['Dog Breed'];
+		}
+	}
+
+
 		// $.getJSON("first.json", function (json) {
 		// 	// console.log(json['records']);
 		// 	Breed(json);
 		// });
+		function district(data) {
+			L.geoJson(data, {
+				onEachFeature: function (feature, layer) {
+					convert(feature);
+				}
+			});
+
+		}
+
+		function convert(data) {
+			var array = new Array();
+			L.geoJson(data, {
+				coordsToLatLng: function (coords) {
+					array.push([coords[1], coords[0]]);
+				}
+			});
+			midpoint(array);
+		}
 
 		var midpoints = new Array();
 		function midpoint(boundary) {
@@ -94,6 +101,7 @@
 			midpoints.push([aveLon, aveLat]);
 		}
 
+		var distNum = new Array();
 		function marker(array) {
 			var i;
 			for (i = 0; i < array.length; i++) {
@@ -105,14 +113,6 @@
 				}
 				var marker = L.marker(array[i]).addTo(map);
 				// marker.bindPopup("District " + distNum[i] + "<br>" + dogbreed[dist]);
-			}
-		}
-
-		var dogbreed = new Array(23);
-		function Breed(json) {
-			var i;
-			for (i = 0; i < json['records'].length; i++) {
-				dogbreed[i] = json['records'][i]['Dog Breed'];
 			}
 		}
 
